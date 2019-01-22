@@ -1,8 +1,8 @@
 package raadi;
 
-public class Nested<T>
+public class Nested
 {
-    public Nested(Class<T> tClass)
+    public Nested(Object tObject)
     {
 
     }

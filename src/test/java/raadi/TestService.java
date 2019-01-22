@@ -1,17 +1,14 @@
 package raadi;
 
-public class TestService
-{
-    public TestService()
-    {
+public class TestService {
+    public TestService() {
     }
 
-    public void ping()
-    {
-        System.out.println("pinggg");
+    public void ping() {
+        System.out.println("ping");
     }
 
     public void pong() {
-        System.out.println("pongggggg");
+        System.out.println("pong");
     }
 }

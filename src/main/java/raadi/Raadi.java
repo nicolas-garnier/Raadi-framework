@@ -12,39 +12,37 @@ public class Raadi<T> {
 
     Stack<AnyScope> stackScope;
 
-    public Raadi()
-    {
+    public Raadi() {
         stackScope = new Stack<>();
         stackScope.push(new AnyScope<T>());
     }
 
-    public void provider(T tObject, Provider<T> provider)
-    {
+    public void closeScope() {
+        stackScope.pop();
+    }
+
+    public void provider(Class<T> tClass, Provider<T> provider) {
         AnyScope<T> curr = stackScope.peek();
 
-        HashMap<T, Provider<T>> hm = curr.getHashMapProviders();
-        hm.put(tObject, provider);
+        HashMap<Class<T>, Provider<T>> hm = curr.getHashMapProviders();
+        hm.put(tClass, provider);
         curr.setHashMapProviders(hm);
     }
 
-
-    public void scope(AnyScope<T> scope, Consumer<AnyScope<T>> consumer)
-    {
-        consumer.accept(scope);
-    }
-
-    public <T> T instanceOf(Class<T> tClass) {
-        try {
-            return tClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public void bean(Class<T> tClass, T tObject) {
-        this.provider(tObject, new Singleton<>(tObject));
+        this.provider(tClass, new Singleton<>(tObject));
+    }
+
+
+    public void scope(AnyScope<T> scope, Consumer<AnyScope<T>> consumer) {
+        consumer.accept(scope);
+        stackScope.push(scope);
+    }
+
+    public T instanceOf(Class<T> tClass) {
+        AnyScope<T> curr = stackScope.peek();
+        HashMap<Class<T>, Provider<T>> hm = curr.getHashMapProviders();
+        T res = hm.get(tClass).getBean();
+        return res;
     }
 }

@@ -1,8 +1,7 @@
 package raadi;
 
-public class TestServiceBlipImpl
-{
-    public TestServiceBlipImpl()
-    {
+public class TestServiceBlipImpl extends TestService {
+    public TestServiceBlipImpl() {
+        super();
     }
 }

@@ -1,8 +1,15 @@
-package raadiTest;
+package raadi;
 
-import raadiTest.aspects.BeforeInvocation;
+import raadi.aspects.AfterInvocation;
+import raadi.aspects.AroundInvocation;
+import raadi.aspects.BeforeInvocation;
+import raadi.aspects.ExecutionContext;
+import raadi.provider.Prototype;
+import raadi.provider.Singleton;
+import raadi.scope.AnyScope;
 
 import java.lang.reflect.Method;
+import java.util.function.Function;
 
 public class BasicTest
 {
@@ -63,8 +70,8 @@ public class BasicTest
         });
 
         // Define AoP behaviour around calls to the pong method.
-        raadi.provider(Nested.class, new Singleton<>(new Nested(raadi.instanceOf(TestService.class))));
-        raadi.provider(Nested.class, new Prototype<>(() -> new Nested(raadi.instanceOf(TestService.class))));
+        raadi.provider(Nested.class, new Singleton<Nested>(new Nested(raadi.instanceOf(TestService.class))));
+        raadi.provider(Nested.class, new Prototype<Nested>(() -> new Nested(raadi.instanceOf(TestService.class))));
 
         // Test call
         final TestService testService = raadi.instanceOf(TestService.class);

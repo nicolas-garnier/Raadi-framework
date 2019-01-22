@@ -1,4 +1,4 @@
-package raadiTest.application;
+package raadi.application;
 
 public class App
 {

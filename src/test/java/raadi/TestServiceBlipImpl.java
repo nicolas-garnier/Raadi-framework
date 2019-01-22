@@ -1,4 +1,4 @@
-package raadiTest;
+package raadi;
 
 public class TestServiceBlipImpl
 {

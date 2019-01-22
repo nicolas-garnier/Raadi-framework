@@ -1,6 +1,6 @@
 package raadiTest;
 
-import raadiTest.aspects.BeforeInvocation;
+import raadiTest.aspect.BeforeInvocation;
 
 import java.lang.reflect.Method;
 
@@ -29,7 +29,7 @@ public class BasicTest
         // Stacks a scope.
         raadi.scope(new AnyScope(), scope -> {
 
-            // Adds a singleton with aspects
+            // Adds a singleton with aspect
             scope.bean(TestService.class, new TestServiceBlipImpl(),
 
                     // Define AoP behaviour on the before(Pong)

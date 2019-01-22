@@ -10,4 +10,8 @@ public class TestService
     {
         System.out.println("pinggg");
     }
+
+    public void pong() {
+        System.out.println("pongggggg");
+    }
 }

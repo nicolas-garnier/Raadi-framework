@@ -8,7 +8,6 @@ import raadi.aspects.ExecutionContext;
 import raadi.provider.Prototype;
 import raadi.provider.Singleton;
 import raadi.scope.AnyScope;
-import raadi.scope.Scope;
 
 import java.lang.reflect.Method;
 import java.util.function.Consumer;

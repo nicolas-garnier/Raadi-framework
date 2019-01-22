@@ -1,4 +1,4 @@
-package raadiTest;
+package raadi;
 import org.junit.Assert;
 import org.junit.Test;
 

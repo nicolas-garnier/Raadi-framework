@@ -1,6 +1,6 @@
-package raadiTest;
+package raadi;
 
-public class Raadi
+public class Raadi<T>
 {
     public Raadi()
     {
@@ -12,18 +12,15 @@ public class Raadi
         // TODO
     }
 
-    public void bean()
-    {
-        // TODO
-    }
-
     public void scope()
     {
 
     }
 
-    public void instanceOf()
+    public void instanceOf(Class<T> tClass)
     {
+    }
 
+    public void bean(Class<T> tClass, T tObject) {
     }
 }

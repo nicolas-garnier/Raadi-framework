@@ -1,5 +1,6 @@
 package raadi;
 
+import org.junit.Test;
 import raadi.aspects.AfterInvocation;
 import raadi.aspects.AroundInvocation;
 import raadi.aspects.BeforeInvocation;
@@ -7,8 +8,10 @@ import raadi.aspects.ExecutionContext;
 import raadi.provider.Prototype;
 import raadi.provider.Singleton;
 import raadi.scope.AnyScope;
+import raadi.scope.Scope;
 
 import java.lang.reflect.Method;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class BasicTest
@@ -21,6 +24,7 @@ public class BasicTest
         }
     }
 
+    @Test
     public void testBasicUseCase() throws InterruptedException {
         final Raadi raadi = new Raadi();
 
@@ -31,18 +35,17 @@ public class BasicTest
         raadi.bean(TestService.class, new TestServiceImpl());
 
         // Shortcurt for singleton, binding on the element class.
-        raadi.bean(new Nested(raadi.instanceOf(TestService.class)));
+        // raadi.bean(new Nested(raadi.instanceOf(TestService.class)));
 
         // Stacks a scope.
-        raadi.scope(new AnyScope(), scope -> {
+        raadi.scope(new AnyScope(), (Consumer<AnyScope>) scope -> {
 
             // Adds a singleton with aspect
             scope.bean(TestService.class, new TestServiceBlipImpl(),
 
                     // Define AoP behaviour on the before(Pong)
-                    new BeforeInvocation(getMethod(TestService.class, "pong"), ExecutionContext -> {
+                    new BeforeInvocation(getMethod(TestService.class, "pong"), ctx -> {
                         System.out.println("before >> ");
-                        return Unit.INSTANCE; // Kotlin compatibility.
                     }),
 
                     // Define AoP behaviour around calls to the pong method.
@@ -62,11 +65,8 @@ public class BasicTest
                     // Adds behaviour after the calls to pong.
                     new AfterInvocation(getMethod(TestService.class, "pong"), ctx -> {
                         System.out.println("<< after!");
-                        return Unit.INSTANCE; // Kotlin compatibility.
                     })
             );
-
-            return Unit.INSTANCE; // Kotlin compatibility.
         });
 
         // Define AoP behaviour around calls to the pong method.
@@ -74,7 +74,7 @@ public class BasicTest
         raadi.provider(Nested.class, new Prototype<>(() -> new Nested(raadi.instanceOf(TestService.class))));
 
         // Test call
-        final TestService testService = raadi.instanceOf(TestService.class);
+        final TestService testService = (TestService) raadi.instanceOf(TestService.class);
         for (int i = 0; i < 5; i++) {
             testService.ping();
         }

@@ -7,11 +7,7 @@ import raadi.aspects.BeforeInvocation;
 public class AnyScope extends Scope {
 
     @Override
-    public void bean(Class aClass,
-                     Object object,
-                     BeforeInvocation beforeInvocation,
-                     AroundInvocation aroundInvocation,
-                     AfterInvocation afterInvocation) {
+    public void bean(Class aClass, Object object, BeforeInvocation beforeInvocation, AroundInvocation aroundInvocation, AfterInvocation afterInvocation) {
 
     }
 }

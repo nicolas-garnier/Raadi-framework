@@ -8,5 +8,6 @@ public class TestService
 
     public void ping()
     {
+        System.out.println("pinggg");
     }
 }

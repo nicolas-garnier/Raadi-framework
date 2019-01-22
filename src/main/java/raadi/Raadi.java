@@ -2,9 +2,11 @@ package raadi;
 
 import raadi.provider.Prototype;
 import raadi.provider.Singleton;
+import raadi.scope.Scope;
 
-public class Raadi<T>
-{
+import java.util.function.Consumer;
+
+public class Raadi<T> {
     public Raadi()
     {
 
@@ -20,14 +22,20 @@ public class Raadi<T>
         // TODO
     }
 
-    public void scope()
+    public void scope(Scope<T> scope, Consumer<Scope<T>> consumer)
     {
 
     }
 
-    public <T> T instanceOf(Class<T> tClass)
-    {
-
+    public <T> T instanceOf(Class<T> tClass) {
+        try {
+            return tClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void bean(Class<T> tClass, T tObject) {

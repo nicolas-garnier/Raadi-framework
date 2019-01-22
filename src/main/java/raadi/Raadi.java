@@ -1,5 +1,8 @@
 package raadi;
 
+import raadi.provider.Prototype;
+import raadi.provider.Singleton;
+
 public class Raadi<T>
 {
     public Raadi()
@@ -7,7 +10,12 @@ public class Raadi<T>
 
     }
 
-    public void provider()
+    public void provider(Object tObject, Singleton<T> singleton)
+    {
+        // TODO
+    }
+
+    public void provider(Object tObject, Prototype<T> prototype)
     {
         // TODO
     }
@@ -17,8 +25,9 @@ public class Raadi<T>
 
     }
 
-    public void instanceOf(Class<T> tClass)
+    public <T> T instanceOf(Class<T> tClass)
     {
+
     }
 
     public void bean(Class<T> tClass, T tObject) {

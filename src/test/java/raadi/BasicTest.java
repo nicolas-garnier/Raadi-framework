@@ -70,8 +70,8 @@ public class BasicTest
         });
 
         // Define AoP behaviour around calls to the pong method.
-        raadi.provider(Nested.class, new Singleton<Nested>(new Nested(raadi.instanceOf(TestService.class))));
-        raadi.provider(Nested.class, new Prototype<Nested>(() -> new Nested(raadi.instanceOf(TestService.class))));
+        raadi.provider(Nested.class, new Singleton<>(new Nested(raadi.instanceOf(TestService.class))));
+        raadi.provider(Nested.class, new Prototype<>(() -> new Nested(raadi.instanceOf(TestService.class))));
 
         // Test call
         final TestService testService = raadi.instanceOf(TestService.class);

@@ -5,6 +5,7 @@ import raadi.provider.Singleton;
 import raadi.scope.AnyScope;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Stack;
 import java.util.function.Consumer;
 
@@ -40,9 +41,13 @@ public class Raadi<T> {
     }
 
     public T instanceOf(Class<T> tClass) {
-        AnyScope<T> curr = stackScope.peek();
-        HashMap<Class<T>, Provider<T>> hm = curr.getHashMapProviders();
-        T res = hm.get(tClass).getBean();
-        return res;
+        for (int i = stackScope.size() - 1; i >= 0; i--) {
+            HashMap<Class<T>, Provider<T>> hm = stackScope.elementAt(i).getHashMapProviders();
+            if (hm.containsKey(tClass)) {
+                T res = hm.get(tClass).getBean();
+                return res;
+            }
+        }
+        return null;
     }
 }
